@@ -106,12 +106,6 @@ class HMI_Dataset():
             for i in range(0, c):
                 index.append(i)
         return index
-
-    
-    def _randomise_list(self, paths, indices):
-        combined = list(zip(paths, indices))
-        random.shuffle(combined)
-        return combined
     
     def _get_label_harp(self, path):
         label = int(path.split('/')[-2])

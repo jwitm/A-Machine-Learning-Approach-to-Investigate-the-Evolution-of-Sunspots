@@ -7,7 +7,7 @@ import torch.nn.functional as F
     
 class Hybrid(nn.Module):
     def __init__(self):
-        super(Hybrid3, self).__init__()
+        super(Hybrid, self).__init__()
         self.convnet = vgg16(weights = VGG16_Weights.DEFAULT)
 
         # If you want to load the weights from a file, use the following code
