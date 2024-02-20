@@ -1,17 +1,19 @@
-from Data.DataSet import NEW_HMI_Dataset,NEW_HMI_Dataset_filtered
+from DataSet import HMI_Dataset
 import multiprocessing
 import numpy as np
 import random
 import torch
 import os
 
-def reduce_dataset(mode:str, dir_path:str):
+def reduce_dataset(dir_path:str):
     """
     This function reduces the dataset such that we have an equal amount of positive 
     and negative examples. It does also fiter the Dataset such that the minimal shape of
     the input is (1,17,17) 
+
+    dir_path: where to save the valid indices
     """
-    Data = NEW_HMI_Dataset(mode, crop = True, set='new')
+    Data = HMI_Dataset(type = "continuum", crop = True, binning = False, augmentaion = False, valid_indices = False)
     valid_input_shape = (1, 17, 17)
 
     label_positive = []
@@ -41,11 +43,11 @@ def reduce_dataset(mode:str, dir_path:str):
     
     valid_indices = label_positive + label_negative
     valid_indices = torch.tensor(np.array(valid_indices))
-    torch.save(valid_indices, f'{dir_path}/valid_indices_{mode}.pt')
-    print(f"relative amount of data in {mode}-mode: {len(valid_indices)/len(Data)*100} \%")
+    torch.save(valid_indices, f'{dir_path}/valid_indices.pt')
+    print(f"relative amount of data: {len(valid_indices)/len(Data)*100} \%")
 
-def get_dataset_specs(mode = 'train'):
-    Data = NEW_HMI_Dataset_filtered(mode, Filter = None, type = 'continuum', crop = True, set = "new")
+def get_dataset_specs():
+    Data = HMI_Dataset(type='continuum', crop=True, binning=False, augmentaion=False, valid_indices = True)
     max_len = 0
     max_width = 0
     max_height = 0
@@ -65,19 +67,7 @@ def get_dataset_specs(mode = 'train'):
 
 
 if __name__ == "__main__":
-    dir_path = f'/fast/witmerj/valid_indices_Final'
+    dir_path = f'/path/to/saving/directory'
 
-    # tasks = [('train', f'{dir_path}'), ('test', f'{dir_path}')]
-    # tasks = ['train', 'test']
-    # tasks = [('Final', f'{dir_path}')]
-    tasks = ['Final']
-
-    num_cpus = multiprocessing.cpu_count()
-    print(num_cpus)
-    pool = multiprocessing.Pool(processes=num_cpus)
-
-    # pool.starmap(reduce_dataset, tasks)
-    pool.map(get_dataset_specs, tasks)
-
-    pool.close()
-    pool.join()
+    reduce_dataset(dir_path)
+    get_dataset_specs()

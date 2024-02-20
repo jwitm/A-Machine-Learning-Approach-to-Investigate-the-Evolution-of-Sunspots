@@ -43,7 +43,7 @@ def add_random_noise(sequence, noise_level=0.05):
 
 # Define a class for the HMI dataset
 class HMI_Dataset():
-    def __init__(self, type='continuum', crop=True, binning=False, augmentaion=False):
+    def __init__(self, type='continuum', crop=True, binning=False, augmentaion=False, valid_indices = True):
         super().__init__()
 
         basepath = "path/to/your/sequences"
@@ -62,8 +62,10 @@ class HMI_Dataset():
         index = self._get_index(counts)
         self.full_paths = list(zip(paths, index))
 
-        valid_indices = np.array(valid_indices)
-        self.full_paths = [self.full_paths[i] for i in valid_indices]
+        if valid_indices:
+            valid_indices = np.array(valid_indices)
+            self.full_paths = [self.full_paths[i] for i in valid_indices]
+
         if crop:
             self.crop_idx = [self.crop_idx[i] for i in valid_indices]
             self.crop_idx.pop(179)      # NOTE: This is a temporary fix. The 179th index is not valid.

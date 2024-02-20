@@ -1,0 +1,44 @@
+–––––––––––––––––
+SPECS:          |
+–––––––––––––––––
+Accuracy = 91   |
+TSS = 0.82      |
+Epochs = 76     |
+–––––––––––––––––
+
+–––––––––––––––––––––––––
+TRANSFORMER:            |
+–––––––––––––––––––––––––
+feat_dim=1000,          |
+max_len=148,            |
+d_model=32,             |
+n_heads=4,              |
+num_layers=3,           |
+dim_feedforward=2*32,   |
+num_classes=1,          |
+dropout=0.5,            |
+pos_encoding='fixed',   |
+activation='relu',      |
+norm_mode='layer_norm', |
+freeze=False            |
+–––––––––––––––––––––––––
+
+–––––––––––––––––––––
+TRAINING:           |
+–––––––––––––––––––––
+Lr_T = 5e-5         |
+Lr_CNN = 1e-5       |
+ADAM, wd=5e-1      |
+batch = 64          |
+early-stop = 50     |
+warmup = 20         |
+–––––––––––––––––––––
+
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+SCHEDULER:                                                                                                                                              |
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+self.scheduler_transformer_warmup = LambdaLR(self.optimizer_transformer, lr_lambda=lambda epoch: warmup_schedule(epoch, warmup_epochs), verbose = True) |
+self.scheduler_cnn_warmup = LambdaLR(self.optimizer_cnn, lr_lambda=lambda epoch: warmup_schedule(epoch, warmup_epochs), verbose = True)                 |
+self.scheduler_transformer = ReduceLROnPlateau(self.optimizer_transformer, mode = 'min', factor = 0.5, patience = 10, verbose = True)                   |
+self.scheduler_cnn = ReduceLROnPlateau(self.optimizer_cnn, mode = 'min', factor = 0.5, patience = 10, verbose = True)                                   |
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
