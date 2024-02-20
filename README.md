@@ -7,6 +7,7 @@ The contents of the repository are the following:
 - GradCam.py: Implementation of Grad-CAM, Guided Backpropagation and Guided Grad-CAM.
 - specs.txt: File containing the parameters used for training.
 - Meta_Labeling.py: Algorithm applied to get sequence-wise labels from the image-wise labeled observations.
+- reduce_dataset.py: Algorithm applied to equalize amount of positive and negative sequences.
 
 
 Unfortunately GitHub does not allow to upload the trained weights for the hybrid model, since the file is too large.

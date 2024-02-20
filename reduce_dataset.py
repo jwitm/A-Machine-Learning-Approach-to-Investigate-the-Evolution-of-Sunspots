@@ -1,5 +1,4 @@
 from DataSet import HMI_Dataset
-import multiprocessing
 import numpy as np
 import random
 import torch
@@ -60,10 +59,10 @@ def get_dataset_specs():
             max_width = width
         if height>max_height:
             max_height = height
-    print(f'The max length for mode = {mode} is: {max_len}')
-    print(f'The max height for mode = {mode} is: {max_height}')
-    print(f'The max width for mode = {mode}  is: {max_width}')
-    print(f'Total amount of data in {mode}-mode: {len(Data)}\n')
+    print(f'The max length is: {max_len}')
+    print(f'The max height for is: {max_height}')
+    print(f'The max width for is: {max_width}')
+    print(f'Total amount of data in {len(Data)}\n')
 
 
 if __name__ == "__main__":
