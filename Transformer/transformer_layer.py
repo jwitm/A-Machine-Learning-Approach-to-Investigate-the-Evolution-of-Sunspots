@@ -1,5 +1,5 @@
 from torch import nn
-from ..Transformer.multi_head_attention import MultiHeadAttention
+from Transformer.multi_head_attention import MultiHeadAttention
 
 class TransformerBatchNormEncoderLayer(nn.modules.Module):
     '''

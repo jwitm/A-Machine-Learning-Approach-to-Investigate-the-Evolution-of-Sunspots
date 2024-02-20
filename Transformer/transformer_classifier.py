@@ -2,11 +2,11 @@ import math
 import torch
 from torch import nn
 
-from ..Transformer.positional_encodings import get_pos_encoder
-from ..Transformer.transformer_layer import TransformerBatchNormEncoderLayer
-from ..Transformer.transformer_layer import TransformerLayerNormEncoderLayer
-from ..Transformer.transformer_encoder import TransformerEncoder
-from ..Transformer.positional_encodings import _get_activation_fn
+from Transformer.positional_encodings import get_pos_encoder
+from Transformer.transformer_layer import TransformerBatchNormEncoderLayer
+from Transformer.transformer_layer import TransformerLayerNormEncoderLayer
+from Transformer.transformer_encoder import TransformerEncoder
+from Transformer.positional_encodings import _get_activation_fn
 
 
 class TSTransformerEncoderClassiregressor(nn.Module):
